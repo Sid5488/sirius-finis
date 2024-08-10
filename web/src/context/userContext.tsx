@@ -6,6 +6,7 @@ interface IAuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: () => boolean;
+  createAccount: () => void;
 }
 
 interface IAuthProvider {
@@ -41,6 +42,8 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     return token !== '';
   };
 
+  const createAccount = () => {};
+
   useEffect(() => {
     const storedToken = sessionStorage.getItem('authToken');
 
@@ -52,7 +55,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ login, logout, isAuthenticated }}>
+    <AuthContext.Provider value={{ login, logout, isAuthenticated, createAccount }}>
       {children}
     </AuthContext.Provider>
   );
