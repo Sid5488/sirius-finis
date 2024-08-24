@@ -13,6 +13,7 @@ export default defineConfig({
       '**/dtos/**/*.ts',
       '**/repositories/**/*.ts',
       '**/interfaces/**/*.ts',
+      '**/http/**/*.ts',
 			'vite.config.ts'
 		],
 		coverage: {

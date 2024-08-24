@@ -1,5 +1,15 @@
 import "dotenv/config";
 import { z } from "zod";
+import { config } from "dotenv";
+import { resolve } from "path";
+
+const envFile = process.env.NODE_ENV === 'test'
+  ? '.env.test'
+  : (process.env.NODE_ENV === 'production'
+    ? '.env.production'
+    : '.env');
+
+config({ path: resolve(__dirname, envFile) });
 
 const envSchema = z.object({
   NODE_ENV: z.enum(["dev", "test", "production"]).default("dev"),
