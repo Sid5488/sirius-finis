@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import authRoutes from "./auth-routes";
 import userRoutes from "./user-routes";
+import categoryRoutes from "./category-routes";
 import authMiddleware from "@/middlewares/express/auth-middleware";
 
 class Routes {
@@ -16,8 +17,9 @@ class Routes {
   routes(): void {
     this.router.use("/auth", authRoutes.routes);
     this.router.use("/users", userRoutes.routes);
-
+    
     this.router.use(authMiddleware);
+    this.router.use("/categories", categoryRoutes.routes);
   }
 }
 
