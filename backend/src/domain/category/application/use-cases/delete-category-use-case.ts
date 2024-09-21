@@ -1,0 +1,3 @@
+class DeleteCategoryUseCase {}
+
+export { DeleteCategoryUseCase };
