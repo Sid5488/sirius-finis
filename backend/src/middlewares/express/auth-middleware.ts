@@ -1,4 +1,4 @@
-import { verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 
 import { AppError } from "@/errors/app-error";
@@ -16,6 +16,7 @@ export default (
   _: Response,
   next: NextFunction
 ): void => {
+  const { verify } = jwt;
   const authHeader = request.headers.authorization;
 
   if (!authHeader) throw new AppError("Authorization not foud", 401);

@@ -1,5 +1,5 @@
 import { compare } from "bcrypt";
-import { sign } from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
 import { AppError } from "@/errors/app-error";
 import authConfig from "@/core/config/auth-config";
@@ -12,6 +12,8 @@ class AuthUseCase implements IAuthUseCase {
   constructor(private readonly userRepository: IUserRepository) {}
 
   async execute({ email, password }: IAuthDTO): Promise<IAuthResponseDTO> {
+    const { sign } = jwt;
+
     const userExist = await this.userRepository.findByEmail(email);
 
     if (!userExist) throw new AppError("Email/password are incorrect.", 406);

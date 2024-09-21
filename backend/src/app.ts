@@ -1,3 +1,5 @@
+import cors from "cors";
+import "express-async-errors"
 import { errors } from "celebrate";
 import express, { Application } from "express";
 
@@ -22,6 +24,7 @@ class App {
 
   private middleware(): void {
     this.server.use(express.json());
+    this.server.use(cors());
   }
 
   private router(): void {

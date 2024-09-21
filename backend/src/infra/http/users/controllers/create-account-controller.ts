@@ -6,12 +6,12 @@ import { CreateAccountUseCase } from
 import { UserPrismaRepository } from 
   "@/domain/users/application/repositories/prisma/user-prisma-repository";
 
-const createAccountUseCase = new CreateAccountUseCase(
-  new UserPrismaRepository()
-);
-
 class CreateAccountController {
   async handle(request: Request, response: Response): Promise<Response> {
+    const createAccountUseCase = new CreateAccountUseCase(
+      new UserPrismaRepository()
+    );
+
     try {
       const { name, email, password } = request.body;
 
