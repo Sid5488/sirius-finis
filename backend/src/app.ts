@@ -1,4 +1,5 @@
 import cors from "cors";
+import "express-async-errors"
 import { errors } from "celebrate";
 import express, { Application } from "express";
 
