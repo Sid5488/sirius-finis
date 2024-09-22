@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import authRoutes from "./auth-routes";
 import userRoutes from "./user-routes";
+import expenseRoutes from "./expense-routes";
 import categoryRoutes from "./category-routes";
 import authMiddleware from "@/middlewares/express/auth-middleware";
 
@@ -20,6 +21,7 @@ class Routes {
     
     this.router.use(authMiddleware);
     this.router.use("/categories", categoryRoutes.routes);
+    this.router.use("/expenses", expenseRoutes.routes);
   }
 }
 

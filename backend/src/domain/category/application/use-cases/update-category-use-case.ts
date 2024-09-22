@@ -10,7 +10,7 @@ class UpdateCategoryUseCase implements IUpdateCategoryUseCase {
   constructor(private readonly _repository: ICategoryRepository) {}
 
   async execute({ id, name, userId }: IExecuteUpdateCategory): Promise<void> {
-    const getCategoryById = await this._repository.findById(id);
+    const getCategoryById = await this._repository.findById(id, userId);
     const categoryAlreadyExist = await this._repository
       .findByName(name, userId);
 

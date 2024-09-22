@@ -10,7 +10,7 @@ class DeleteCategoryUseCase {
   async execute(
     { id, userId }: IExecuteDeleteCategoriesUseCase
   ): Promise<void> {
-    const getCategory = await this._repository.findById(id);
+    const getCategory = await this._repository.findById(id, userId);
 
     if (!getCategory) throw new AppError("Category not found.", 204);
 
