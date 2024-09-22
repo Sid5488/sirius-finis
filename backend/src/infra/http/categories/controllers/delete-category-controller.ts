@@ -19,7 +19,7 @@ class DeleteCategoryController {
 
       const categories = await getAllCategoriesUseCase.execute({ userId, id });
 
-      return response.status(200).json(categories);
+      return response.status(204).json(categories);
     } catch (error: any) {
       throw new AppError(error.message, error.statusCode);
     }

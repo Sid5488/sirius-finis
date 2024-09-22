@@ -20,6 +20,7 @@ model User {
   password String
 
   Category Category[]
+  Expense  Expense[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -32,12 +33,30 @@ model Category {
   id   String @unique @default(uuid())
   name String
 
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
+  Expense Expense[]
+  user    User      @relation(fields: [userId], references: [id])
+  userId  String
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   removedAt DateTime?
 
   @@map("categories")
+}
+
+model Expense {
+  id    String  @unique @default(uuid())
+  price Decimal @db.Decimal(10, 2)
+
+  Category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+
+  User   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  removedAt DateTime?
+
+  @@map("expenses")
 }

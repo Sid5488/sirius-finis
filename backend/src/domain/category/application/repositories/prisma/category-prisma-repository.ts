@@ -15,34 +15,51 @@ class CategoryPrismaRepository implements ICategoryRepository {
   async save(data: ISaveCategoryDTO): Promise<void> {
     await prisma.category.update({
       data,
-      where: { id: data.id },
+      where: { 
+        id: data.id 
+      },
     });
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string, userId: string): Promise<void> {
     await prisma.category.update({
       data: { removedAt: new Date() },
-      where: { id },
+      where: { id, userId },
     });
   }
 
-  async findById(id: string): Promise<ICategoryResponseDTO | null> {
+  async findById(
+    id: string, 
+    userId: string
+  ): Promise<ICategoryResponseDTO | null> {
     return await prisma.category.findUnique({ 
-      where: { id, removedAt: null } 
+      where: { 
+        id, 
+        userId, 
+        removedAt: null 
+      } 
     });
   }
 
-  async findByName(name: string, userId: string): Promise<ICategoryResponseDTO | null> {
+  async findByName(
+    name: string, 
+    userId: string
+  ): Promise<ICategoryResponseDTO | null> {
     return await prisma.category.findFirst({ 
       where: { 
-        AND: { userId, name, removedAt: null },
+        userId, 
+        name, 
+        removedAt: null
       } 
     });
   }
 
   async findByUserId(userId: string): Promise<ICategoryResponseDTO[] | null> {
     return await prisma.category.findMany({ 
-      where: { userId, removedAt: null } 
+      where: { 
+        userId, 
+        removedAt: null 
+      } 
     });
   }
 }
