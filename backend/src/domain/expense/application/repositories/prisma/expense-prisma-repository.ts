@@ -20,10 +20,10 @@ class ExpensePrismaRepository implements IExpenseRepository {
     });
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string, userId: string): Promise<void> {
     await prisma.expense.update({
       data: { removedAt: new Date() },
-      where: { id }
+      where: { id, userId }
     });
   }
 
@@ -33,7 +33,7 @@ class ExpensePrismaRepository implements IExpenseRepository {
   ): Promise<IExpenseResponseDTO | null> {
     return await prisma.expense.findUnique({
       where: { 
-        id, 
+        id,
         userId, 
         removedAt: null 
       }

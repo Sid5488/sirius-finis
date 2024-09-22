@@ -21,7 +21,7 @@ class DeleteCategoryUseCase {
       );
     }
 
-    await this._repository.delete(id);
+    await this._repository.delete(id, userId);
   }
 }
 

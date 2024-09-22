@@ -21,10 +21,10 @@ class CategoryPrismaRepository implements ICategoryRepository {
     });
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string, userId: string): Promise<void> {
     await prisma.category.update({
       data: { removedAt: new Date() },
-      where: { id },
+      where: { id, userId },
     });
   }
 

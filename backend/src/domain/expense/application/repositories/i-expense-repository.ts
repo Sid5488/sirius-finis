@@ -9,7 +9,7 @@ export interface IExpenseRepository {
 
   save(data: ISaveExpenseDTO): Promise<void>;
 
-  delete(id: string): Promise<void>;
+  delete(id: string, userId: string): Promise<void>;
 
   findById(
     id: string, 

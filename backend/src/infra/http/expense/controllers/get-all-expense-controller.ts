@@ -1,29 +1,27 @@
 import { Request, Response } from "express";
 
 import { AppError } from "@/errors/app-error";
-
 import { ExpensePrismaRepository } from 
   "@/domain/expense/application/repositories/prisma/expense-prisma-repository";
-import { CreateExpenseUseCase } from 
-  "@/domain/expense/application/use-cases/create-expense-use-case";
+import { GetAllExpenseUseCase } from 
+  "@/domain/expense/application/use-cases/get-all-expense-use-case";
 
-class CreateExpenseController {
+class GetAllExpenseController {
   async handle(request: Request, response: Response): Promise<Response> {
     try {
-      const createExpenseUseCase = new CreateExpenseUseCase(
+      const getAllExpenseUseCase = new GetAllExpenseUseCase(
         new ExpensePrismaRepository()
       );
 
-      const { price, categoryId } = request.body;
       const { id: userId } = request.user;
 
-      await createExpenseUseCase.execute({ price, categoryId, userId });
+      const expeses = await getAllExpenseUseCase.execute(userId);
 
-      return response.status(201).json();
+      return response.status(200).json(expeses);
     } catch (error: any) {
       throw new AppError(error.message, error.statusCode);
     }
   }
 }
 
-export default { controller: new CreateExpenseController() }
+export default { controller: new GetAllExpenseController() };
