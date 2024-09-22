@@ -7,6 +7,7 @@ import { PrivateRoute } from "./PrivateRoutes";
 
 import { AuthLayout } from "../layouts/Auth";
 import { DefaultLayout } from "../layouts/Default";
+import { Categories } from "../pages/Categories";
 
 const Router = () => {
   return (
@@ -20,6 +21,10 @@ const Router = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/home" element={<AuthLayout />}>
             <Route index element={<Home />} />
+          </Route>
+
+          <Route path="/categories" element={<AuthLayout />}>
+            <Route index element={<Categories />} />
           </Route>
         </Route>
       </Routes>
