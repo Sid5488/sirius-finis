@@ -9,9 +9,9 @@ interface ICategoryRepository {
 
   save(data: ISaveCategoryDTO): Promise<void>;
 
-  delete(id: string): Promise<void>;
+  delete(id: string, userId: string): Promise<void>;
 
-  findById(id: string): Promise<ICategoryResponseDTO | null>;
+  findById(id: string, userId: string): Promise<ICategoryResponseDTO | null>;
 
   findByName(name: string, userId: string): Promise<ICategoryResponseDTO | null>;
 
