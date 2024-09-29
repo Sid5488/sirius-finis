@@ -6,7 +6,7 @@ export const Container = styled.div`
   min-width: 100vw;
 
   color: white;
-  background-color: #0b1e2f;
+  background-color: #18181b;
 `;
 
 export const Content = styled.div`
@@ -14,10 +14,9 @@ export const Content = styled.div`
   height: max-content;
   min-height: 100vh;
 
-  color: white;
+  padding-top: 60px;
 
-  padding-left: 16px;
-  padding-right: 16px;
+  color: white;
 `;
 
 export const Menu = styled.nav`
@@ -27,6 +26,8 @@ export const Menu = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  position: fixed;
 
   box-shadow: 0 0.5px 10px rgba(0, 0, 0, 0.5);
 
