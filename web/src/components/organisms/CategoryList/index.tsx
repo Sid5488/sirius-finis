@@ -1,28 +1,20 @@
-import { useState } from "react";
+import { useCallback, useEffect } from "react";
 import { ClipboardText } from "phosphor-react";
 
 import { Container } from "./style";
 import { CategoryCard } from "../../atoms/CategoryCard";
+import { useCategory } from "../../../hooks/useCategory";
 
 const CategoryList = () => {
-  const [categories] = useState([
-    {
-      id: "1bd1c283-3121-4dbf-9979-92a1d8cdecf5",
-      name: "Entretenimento",
-      userId: "14e1b733-4a6d-49cd-923f-09fa58d529c1",
-      createdAt: "2024-09-21T23:11:12.913Z",
-      updatedAt: "2024-09-21T23:11:51.727Z",
-      removedAt: null
-    },
-    {
-      id: "1bd1c283-3121-4dbf-9979-92a1d8cdecf2",
-      name: "Casa",
-      userId: "14e1b733-4a6d-49cd-923f-09fa58d529c1",
-      createdAt: "2024-09-21T23:11:12.913Z",
-      updatedAt: "2024-09-21T23:11:51.727Z",
-      removedAt: null
-    }
-  ])
+  const { getAllCategories, categories } = useCategory();
+
+  const fetchCategories = useCallback(async () => {
+    await getAllCategories();
+  }, [getAllCategories]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
   return (
     <Container>
