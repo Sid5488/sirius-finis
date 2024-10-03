@@ -68,6 +68,10 @@ export const Content = styled.div`
         margin: 0 0.5rem;
   
         transition: 0.1s background;
+
+        &.cancel {
+          background-color: #b91c1c;
+        }
       }
     }
   }

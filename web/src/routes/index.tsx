@@ -25,6 +25,7 @@ const Router = () => {
 
           <Route path="/categories" element={<AuthLayout />}>
             <Route index element={<Categories />} />
+            <Route path=":id" element={<Categories />} />
           </Route>
         </Route>
       </Routes>

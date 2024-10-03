@@ -1,25 +1,66 @@
-import { useState } from "react";
-import { PlusCircle } from "phosphor-react";
+import { useCallback, useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Hand, PlusCircle } from "phosphor-react";
+import { toast } from "react-toastify";
 
 import { Container, Header, Content } from "./style";
 
 import { CategoryList } from "../../components/organisms/CategoryList";
 import { useCategory } from "../../hooks/useCategory";
-import { toast } from "react-toastify";
+import { capitalizeFirstLetter } from "../../helpers/string-helpers";
 
 const Categories = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [name, setName] = useState<string>('');
-  const { createCategory } = useCategory();
+  const [message, setMessage] = useState<string>('cadastrar');
+  const { createCategory, getCategoryById, updateCategory } = useCategory();
+
+  const fetchCategory = useCallback(async () => {
+    if (id !== undefined) {
+      const category = await getCategoryById(id);
+      
+      if (category) setName(category.name);
+      
+      setMessage('atualizar');
+    }
+  }, [getCategoryById, id]);
+
+  useEffect(() => {
+    fetchCategory();
+  }, [fetchCategory]);
+
+  const resetForm = () => {
+    setName('');
+    setMessage('cadastrar');
+  }
 
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const response = await createCategory(name);
+    let response: boolean = false;
 
-    if (!response) 
-      return toast.warn('Ocorreu um erro ao cadastrar a categoria!');
+    if (!id) response = await createCategory(name);
+    else response = await updateCategory(id, name);
 
-    return toast.success('Categoria cadastrada com sucesso!');
+    setName('');
+
+    if (!response) {
+      return toast.error(`Ocorreu um erro ao ${message} a categoria!`);
+    }
+
+    resetForm();
+
+    toast.success(`Categoria ${message} com sucesso!`);
+    return navigate('/categories');
+  };
+
+  const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    resetForm();
+
+    return navigate('/categories');
   };
 
   return (
@@ -39,10 +80,24 @@ const Categories = () => {
               required
             />
 
-            <button type="submit" onClick={onSubmit}>
-              Cadastrar 
-              <PlusCircle size={20} />
-            </button>
+            {message === 'cadastrar' ? (
+              <button type="submit" onClick={onSubmit}>
+                {capitalizeFirstLetter(message)} 
+                <PlusCircle size={20} />
+              </button>
+            ): (
+              <>
+                <button type="submit" onClick={onSubmit}>
+                  {capitalizeFirstLetter(message)} 
+                  <PlusCircle size={20} />
+                </button>
+
+                <button className="cancel" type="submit" onClick={onCancel}>
+                  Cancelar
+                  <Hand size={20} />
+                </button>
+              </>
+            )}
           </form>
 
           <CategoryList />

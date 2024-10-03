@@ -26,7 +26,11 @@ const CategoryList = () => {
 
           <div>
             {categories.map(category => (
-              <CategoryCard key={category.id} name={category.name} />
+              <CategoryCard 
+                id={category.id}
+                key={category.id} 
+                name={category.name} 
+              />
             ))}
           </div>
         </div>

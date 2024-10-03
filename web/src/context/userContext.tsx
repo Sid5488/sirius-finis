@@ -14,7 +14,9 @@ interface ILogin {
 }
 
 interface IAuthContextType {
+  token: string;
   login: ({ email, password }: ILogin) => Promise<void>;
+  setToken: (value: string) => void; 
   logout: () => void;
   isAuthenticated: () => boolean;
   createAccount: ({ name, email, password }: ICreateAccount) => Promise<void>;
@@ -82,8 +84,10 @@ const AuthProvider = ({ children }: IAuthProvider) => {
   return (
     <AuthContext.Provider 
       value={{ 
+        token,
         login, 
         logout, 
+        setToken,
         isAuthenticated, 
         createAccount 
       }}
