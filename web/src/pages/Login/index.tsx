@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 import { Container } from "./styles";
-import { StarrySky } from "../../components/StarrySky";
+import { StarrySky } from "../../components/molecules/StarrySky";
 
 import { emitterMessage } from "../../libs/toastify/emitterMessage";
 
