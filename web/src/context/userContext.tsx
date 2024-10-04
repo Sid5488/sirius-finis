@@ -2,11 +2,24 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 
 import { siriusFinisAPI } from "../api/siriusFinis";
 
+interface ICreateAccount {
+  name: string;
+  email: string;
+  password: string;
+}
+
+interface ILogin {
+  email: string;
+  password: string;
+}
+
 interface IAuthContextType {
-  login: (email: string, password: string) => Promise<void>;
+  token: string;
+  login: ({ email, password }: ILogin) => Promise<void>;
+  setToken: (value: string) => void; 
   logout: () => void;
   isAuthenticated: () => boolean;
-  createAccount: () => void;
+  createAccount: ({ name, email, password }: ICreateAccount) => Promise<void>;
 }
 
 interface IAuthProvider {
@@ -18,34 +31,48 @@ const AuthContext = createContext({} as IAuthContextType);
 const AuthProvider = ({ children }: IAuthProvider) => {
   const [token, setToken] = useState<string>('');
 
-  const login = async (email: string, password: string) => {
+  const login = async ({ email, password }: ILogin) => {
     try {
-      const response = await siriusFinisAPI.post("/auth", { email, password });
+      const response = await siriusFinisAPI.post("/auth/sign-in", { email, password });
       const token = response.data.token;
 
       setToken(token);
-
+      
+      sessionStorage.setItem("@sirius-fins:token", token);
       siriusFinisAPI.defaults.headers.Authorization = `Bearer ${token}`;
     } catch (error) {
       console.error('Login failed', error);
 
-      throw error;
+      throw new Error("Email/password incorrect!");
     }
   };
 
   const logout = () => {
     setToken('');
+
     delete siriusFinisAPI.defaults.headers.Authorization;
   };
 
   const isAuthenticated = () => {
+    const storedToken = sessionStorage.getItem("@sirius-fins:token");
+
+    if (storedToken) return true;
+
     return token !== '';
   };
 
-  const createAccount = () => {};
+  const createAccount = async ({ name, email, password }: ICreateAccount) => {
+    const { data } = await siriusFinisAPI.post('/users', {
+      name,
+      email,
+      password
+    });
+
+    if (data.error) throw new Error("Occured an error to create account!");
+  };
 
   useEffect(() => {
-    const storedToken = sessionStorage.getItem('authToken');
+    const storedToken = sessionStorage.getItem("@sirius-fins:token");
 
     if (storedToken) {
       setToken(storedToken);
@@ -55,7 +82,16 @@ const AuthProvider = ({ children }: IAuthProvider) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ login, logout, isAuthenticated, createAccount }}>
+    <AuthContext.Provider 
+      value={{ 
+        token,
+        login, 
+        logout, 
+        setToken,
+        isAuthenticated, 
+        createAccount 
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

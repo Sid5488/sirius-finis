@@ -1,11 +1,17 @@
+import { Link, useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
-import { Link } from "react-router-dom";
+
+import { useAuth } from "../../hooks/useAuth";
 
 import { Container } from "./styles";
-import { StarrySky } from "../../components/StarrySky";
+import { StarrySky } from "../../components/molecules/StarrySky";
+
 import { emitterMessage } from "../../libs/toastify/emitterMessage";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const { createAccount } = useAuth();
+
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -22,19 +28,23 @@ const SignUp = () => {
     setPassword(e.currentTarget.value);
   };
 
-  const handleClick = (e: FormEvent<HTMLButtonElement>) => {
+  const handleClick = async (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (name === "" || email === "" || password === "")
       return emitterMessage("Occured an error to register", "error");
 
-    console.log({
-      name,
-      email,
-      password
-    });
+    try {
+      await createAccount({ name, email, password });
 
-    return emitterMessage("Success", "success");
+      emitterMessage("Account created successfully", "success");
+
+      navigate("/");
+    } catch (error) {
+      console.info(error);
+
+      return emitterMessage("Occured an error to create account", "error");
+    }
   };
 
   return (

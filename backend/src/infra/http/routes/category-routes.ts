@@ -16,7 +16,10 @@ import getAllCategoriesController from
   "../categories/controllers/get-all-categories-controller";
 import deleteCategoryController from 
   "../categories/controllers/delete-category-controller";
-import updateCategoryController from "../categories/controllers/update-category-controller";
+import getCategoryController from 
+  "../categories/controllers/get-category-controller";
+import updateCategoryController from 
+  "../categories/controllers/update-category-controller";
 
 class CategoryRoutes {
   public router: Router;
@@ -37,6 +40,11 @@ class CategoryRoutes {
     this.router.get(
       "/",
       getAllCategoriesController.controller.handle
+    );
+
+    this.router.get(
+      "/:id",
+      getCategoryController.controller.handle
     );
 
     this.router.put(
