@@ -2,6 +2,7 @@ import { useCallback, useEffect } from "react";
 import { ClipboardText } from "phosphor-react";
 
 import { Container } from "./style";
+
 import { CategoryCard } from "../../atoms/CategoryCard";
 import { useCategory } from "../../../hooks/useCategory";
 

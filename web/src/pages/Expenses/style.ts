@@ -1,43 +1,27 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100vw;
-  height: 100%;
-`;
-
-export const Header = styled.header`
+  
   display: flex;
-
-  width: 100%;
-  height: 200px;
-
-  align-items: center;
   justify-content: center;
-
-  background-color: #18181b;
-`;
-
-export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
   main {
     max-width: 75rem;
+    min-width: 1200px;
 
-    form {  
-      width: 100%;
-  
+    padding-top: 6rem;
+
+    h1 {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    div {
       display: flex;
-      justify-content: center;
-  
-      margin-top: calc(0px - 1.5rem - 6px);
-      margin-bottom: 50px;
-  
-      input {
-        width: 39.875rem;
-      }
-  
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      
       button {
         width: 5.625rem;
         height: 3.25rem;
@@ -58,7 +42,7 @@ export const Content = styled.div`
         margin: 0 0.5rem;
   
         transition: 0.1s background;
-
+  
         &.cancel {
           background-color: #b91c1c;
         }
