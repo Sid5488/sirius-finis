@@ -36,6 +36,9 @@ class ExpensePrismaRepository implements IExpenseRepository {
         id,
         userId, 
         removedAt: null 
+      },
+      include: {
+        Category: true
       }
     });
   }
@@ -58,6 +61,11 @@ class ExpensePrismaRepository implements IExpenseRepository {
       where: {
         userId,
         removedAt: null
+      },
+      include: {
+        Category: {
+          select: { id: true, name: true, userId: true }
+        }
       }
     });
   }
