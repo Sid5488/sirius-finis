@@ -8,6 +8,7 @@ import { PrivateRoute } from "./PrivateRoutes";
 import { AuthLayout } from "../layouts/Auth";
 import { DefaultLayout } from "../layouts/Default";
 import { Categories } from "../pages/Categories";
+import { Expenses } from "../pages/Expenses";
 
 const Router = () => {
   return (
@@ -26,6 +27,10 @@ const Router = () => {
           <Route path="/categories" element={<AuthLayout />}>
             <Route index element={<Categories />} />
             <Route path=":id" element={<Categories />} />
+          </Route>
+
+          <Route path="/expenses" element={<AuthLayout />}>
+            <Route index element={<Expenses />} />
           </Route>
         </Route>
       </Routes>

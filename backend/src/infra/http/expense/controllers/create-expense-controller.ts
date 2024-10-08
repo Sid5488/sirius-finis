@@ -14,10 +14,10 @@ class CreateExpenseController {
         new ExpensePrismaRepository()
       );
 
-      const { price, categoryId } = request.body;
+      const { title, price, categoryId } = request.body;
       const { id: userId } = request.user;
 
-      await createExpenseUseCase.execute({ price, categoryId, userId });
+      await createExpenseUseCase.execute({ title, price, categoryId, userId });
 
       return response.status(201).json();
     } catch (error: any) {

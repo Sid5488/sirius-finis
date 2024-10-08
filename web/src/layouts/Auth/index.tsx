@@ -15,7 +15,7 @@ const AuthLayout = () => {
           </li>
 
           <li>
-            <Link to="#expenses">Despesas</Link>
+            <Link to="/expenses">Despesas</Link>
           </li>
           
           <li>

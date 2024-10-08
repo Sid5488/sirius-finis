@@ -15,9 +15,15 @@ class UpdateExpenseController {
 
       const { id } = request.params;
       const { id: userId } = request.user;
-      const { price, categoryId } = request.body;
+      const { title, price, categoryId } = request.body;
 
-      await updateExpenseUseCase.execute({ id, price, userId, categoryId });
+      await updateExpenseUseCase.execute({ 
+        id, 
+        title, 
+        price, 
+        userId, 
+        categoryId 
+      });
 
       return response.status(200).json();
     } catch (error: any) {

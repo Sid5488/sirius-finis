@@ -5,6 +5,14 @@ class Expense extends Entity {
     super();
   }
 
+  public get title(): number {
+    return this.title;
+  }
+
+  public set title(value: number) {
+    this.title = value;
+  }
+
   public get price(): number {
     return this.price;
   }
