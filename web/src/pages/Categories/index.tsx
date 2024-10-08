@@ -8,6 +8,7 @@ import { Container, Header, Content } from "./style";
 import { CategoryList } from "../../components/organisms/CategoryList";
 import { useCategory } from "../../hooks/useCategory";
 import { capitalizeFirstLetter } from "../../helpers/string-helpers";
+import { Input } from "../../components/atoms/Form/Input";
 
 const Categories = () => {
   const { id } = useParams();
@@ -72,11 +73,11 @@ const Categories = () => {
       <Content>
         <main>
           <form>
-            <input 
+            <Input 
               placeholder="Adicione uma nova categoria"
               value={name}
               onChange={e => setName(e.target.value)}
-              type="text" 
+              type="text"
               required
             />
 

@@ -1,47 +1,13 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { PencilSimpleLine, Trash } from "phosphor-react";
 
 import { ICategoryCard } from "../../../interfaces/category-card";
 
-import { Container, DeleteCategory } from "./style";
+import { Container } from "./style";
+
 import { CustomModal } from "../../organisms/CustomModal";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { useCategory } from "../../../hooks/useCategory";
-
-interface IDeleteModal {
-  id: string;
-  name: string;
-  closeModal: () => void;
-}
-
-const DeleteModal = ({ id, name, closeModal }: IDeleteModal) => {
-  const { deleteCategory } = useCategory();
-
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteCategory(id);
-
-      closeModal();
-
-      return toast.success('Categoria apagada com sucesso!');
-    } catch (error) {
-      if (error) 
-        return toast.error('Ocorreu um erro ao tentar apagar a categoria.');
-    }
-  }
-
-  return (
-    <DeleteCategory>
-      <h3>{ name }</h3>
-
-      <div>
-        <button onClick={() => handleDelete(id)}>Ok</button>
-        <button onClick={closeModal}>Cancelar</button>
-      </div>
-    </DeleteCategory>
-  )
-};
+import { DeleteModal } from "./components/DeleteModal";
 
 const CategoryCard = ({ name, id }: ICategoryCard) => {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
