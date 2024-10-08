@@ -11,6 +11,7 @@ class UpdateExpenseUseCase implements IUpdateExpenseUseCase {
   async execute({ 
     id, 
     userId, 
+    title,
     price, 
     categoryId 
   }: IExecuteUpdateExpense): Promise<void> {
@@ -26,6 +27,7 @@ class UpdateExpenseUseCase implements IUpdateExpenseUseCase {
 
     await this._repository.save({
       id,
+      title,
       price,
       userId,
       categoryId

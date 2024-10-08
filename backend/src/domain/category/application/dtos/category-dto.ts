@@ -21,13 +21,23 @@ interface ICategoryDTO {
   userId: string;
 
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt: Date;
   removedAt?: Date;
+}
+
+interface ICategoryToExpenseDTO {
+  id: string;
+  name: string;
+  userId: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  removedAt?: Date | null;
 }
 
 export { 
   ICreateCategoryDTO, 
   ISaveCategoryDTO, 
   ICategoryResponseDTO, 
-  ICategoryDTO 
+  ICategoryDTO,
+  ICategoryToExpenseDTO
 };

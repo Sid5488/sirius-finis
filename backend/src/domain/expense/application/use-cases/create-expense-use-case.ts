@@ -9,10 +9,11 @@ class CreateExpenseUseCase implements ICreateExpenseUseCase {
 
   async execute({ 
     price, 
+    title,
     categoryId, 
     userId 
   }: IExecuteExpenseUseCase): Promise<void> {
-    await this._repository.create({ price, categoryId, userId });
+    await this._repository.create({ title, price, categoryId, userId });
   }
 }
 
